@@ -7,10 +7,10 @@ public class run2 {
     private static final int[] dy = {0, 0, -1, 1};
 
     static class State {
-        int[] x; // x-координаты роботов
-        int[] y; // y-координаты роботов
-        BitSet keys; // Набор собранных ключей
-        int steps; // Количество шагов
+        int[] x;
+        int[] y;
+        BitSet keys; 
+        int steps; 
 
         public State(int[] x, int[] y, BitSet keys, int steps) {
             this.x = x.clone();
@@ -62,7 +62,6 @@ public class run2 {
         int totalKeys = 0;
         Map<Character, Integer> keyIndices = new HashMap<>();
 
-        // Собираем информацию о роботах и ключах
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 char c = maze[i][j];
@@ -76,7 +75,6 @@ public class run2 {
 
         if (totalKeys == 0) return 0;
 
-        // Подготавливаем начальное состояние
         int[] startX = new int[4];
         int[] startY = new int[4];
         for (int i = 0; i < 4; i++) {
@@ -99,12 +97,10 @@ public class run2 {
         while (!queue.isEmpty()) {
             State current = queue.poll();
 
-            // Проверяем, собраны ли все ключи
             if (current.keys.cardinality() == totalKeys) {
                 return current.steps;
             }
 
-            // Пробуем переместить каждого робота
             for (int robot = 0; robot < 4; robot++) {
                 if (current.x[robot] == -1) continue;
 
@@ -122,7 +118,6 @@ public class run2 {
                         if (keyIndex == null || !current.keys.get(keyIndex)) continue;
                     }
 
-                    // Создаем новое состояние
                     int[] newX = current.x.clone();
                     int[] newY = current.y.clone();
                     newX[robot] = nx;
